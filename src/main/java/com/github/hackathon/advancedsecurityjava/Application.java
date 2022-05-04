@@ -66,7 +66,8 @@ public class Application {
 	
 	  public static void createDatabaseEntries(List<Book> books) {
 	
-		try (Connection connection = DriverManager.getConnection(connectionString)) {
+		try {
+		  Connection connection = DriverManager.getConnection(connectionString);
 		  String query = "INSERT INTO Books (name, author, read) VALUES(?, ?, ?)";
 	
 		  for (Book book : books) {
@@ -82,6 +83,7 @@ public class Application {
 			}
 	
 		  }
+		  connection.close();
 		} catch (SQLException error) {
 		  error.printStackTrace();
 		  System.exit(2);
